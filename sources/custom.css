@@ -1,5 +1,4 @@
 .sidebar-brand {
-	background-color: #f8f9fb;
 	border-radius: .25em;
 	margin: var(--sidebar-item-spacing-vertical)
 				calc(var(--sidebar-item-spacing-horizontal)/2)
@@ -12,7 +11,7 @@
 .sidebar-brand::before {
 	content: "";
 	display: block;
-	height: 4.5em;
+	height: 3.5em;
 	background-size: contain;
 	background-image: url(adi_logo.svg);
 	background-repeat: no-repeat;

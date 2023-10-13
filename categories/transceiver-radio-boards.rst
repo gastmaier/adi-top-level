@@ -6,5 +6,5 @@ Transceiver/Radio Boards
 
 .. toctree::
    
-   ../user-guide/adrv9009
+   ../user-guide/adrv9009/index
 

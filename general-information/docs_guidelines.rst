@@ -10,6 +10,60 @@ A brief set-of-rules for the documentation.
    importing text from there, consider the automated options that are provided
    in this page to convert it to reST.
 
+Convert DokuWiki format to reST
+--------------------------------------------------------------------------------
+
+To convert from the DokuWiki format to reST, use pandoc:
+
+.. code:: bash
+
+   pandoc imported.txt -f dokuwiki -t rst --columns=80 -s -o imported.rst
+
+Then, review it.
+
+Path structure
+--------------------------------------------------------------------------------
+
+All user guides are stored in the user-guide folder, with each project assets
+within its own folder, e.g. ``user-guide/adrv9009/*``.
+
+To organize in categories, the user guide is included to the toctree at the proper
+category in the categories folder, for example ADRV9009 is included in the toctree
+of the file ``categories/transceiver-radio-boards.rst`` as:
+
+.. code::
+
+   ../user-guide/adrv9009/index
+
+Notice the relative path.
+New categories have to be included to the top ``index.rst`` and have it included
+to the ``categories`` folder.
+
+.. _git-lfs:
+
+Git Large File Storage
+--------------------------------------------------------------------------------
+
+This repository uses Git Large File Storage (LFS) to replace large files with
+text pointers inside Git, reducing cloning time.
+
+To setup, install from your package manager and init:
+
+.. code:: bash
+
+   apt install git-lfs
+   git lfs install
+
+The files that will use Git LFS are tracked at ``.gitattributes``, to add new
+files use a pattern at the repo root, for example:
+
+.. code:: bash
+
+   git lfs track *.jpg
+
+Or edit ``.gitattributes`` directly.
+
+
 Templates
 --------------------------------------------------------------------------------
 
@@ -29,18 +83,11 @@ instruct Sphinx the beginning and end of the code directive.
 References
 --------------------------------------------------------------------------------
 
-References have the format ``library/project context``.
-Notice how neither *library* nor *project* are present in the label, since there is no
-naming collision between libraries or projects (no project will ever be named
-*axi_dmac*).
+References have the label format ``context section``.
 
-Also, for project, libraries and IPs, the names should be exactly the
-name of its folders, e.g. ``axi_pwm_gen`` and not ``axi-pwm-gen`` or ``AXI_PWM_GEN``,
-this helps avoid broken references.
-
-For resources without a particular source code file/folder, prefer hyphen ``-``
-separation, for example, ``spi_engine control-interface`` instead of
-``spi_engine control_interface``.
+Prefer using hyphen ``-`` separation, for example, ``adrv9009 table-contents``
+instead of ``adrv9009 table_contents``.
+Also, keep the label concise and human friendly.
 
 External references
 --------------------------------------------------------------------------------
@@ -65,97 +112,35 @@ Text width
 --------------------------------------------------------------------------------
 
 Each line must be less than 80 columns wide.
-You can use the :code:`fold` command to break the lines of the imported text
-while respecting word-breaks:
-
-.. code:: bash
-
-   cat imported.txt | fold -sw 80 > imported.rst
-
-Or use :code:`pandoc`:
-
-.. code:: bash
-
-   pandoc imported.txt -f dokuwiki -t rst --columns=80 -s -o imported.rst
-
 
 Tables
 --------------------------------------------------------------------------------
 
 Prefer
 `list-tables <https://docutils.sourceforge.io/docs/ref/rst/directives.html#list-table>`_
-and imported
-`csv-tables <https://docutils.sourceforge.io/docs/ref/rst/directives.html#csv-table-1>`_
-(using the file option), because they are faster to create, easier to maintain
-and the 80 column-width rule can be respected with list-tables.
-
-You can use the following command:
-
-.. code:: bash
-
-   pandoc imported.txt -f dokuwiki -t rst --columns=80 -s -o imported.rst --list-tables
-
-The :code:`list-tables` parameter requires *pandoc-types* >= 1.23, if it is not
-an option, you shall remove it and export in the *grid* table format.
-
-Now you only have to adjust the widths and give the final touches, like using
-the correct directives and roles.
-
-Code
---------------------------------------------------------------------------------
-
-Prefer
-`code-blocks <https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#directive-code-block>`_
-to
-`code <https://docutils.sourceforge.io/docs/ref/rst/directives.html#code>`_
-directives, because code-blocks have more options, such as showing line numbers
-and emphasizing lines.
-
-For example,
-
-.. code:: rst
-
-   .. code-block:: python
-      :linenos:
-      :emphasize-lines: 2
-
-      def hello_world():
-          string = "Hello world"
-          print(string)
-
-Renders as
-
-.. code-block:: python
-   :linenos:
-   :emphasize-lines: 2
-
-   def hello_world():
-       string = "Hello world"
-       print(string)
-
 
 Images
 --------------------------------------------------------------------------------
 
-Prefer the SVG format for images, and save it as *Optimized SVG* in
+Binary images (e.g. PNG, JPG) are stored in :ref:`git-lfs`.
+For vectors, use SVG format saved as *Optimized SVG* in
 `inkscape <https://inkscape.org/>`_ to use less space.
 
 Third-party directives and roles
 --------------------------------------------------------------------------------
 
-Third-party tools are used to expand Sphinx functionality, for example, to
-generate component diagrams.
+Third-party tools are used to expand Sphinx functionality, if you haven't already,
+do:
 
-.. tip::
+.. code:: bash
 
-   Check :git-hdl:`docs/Containterfile` for a recipe to install these
-   tools, either in the host or in a container.
+   pip install -r requirements.txt
 
 Custom directives and roles
 --------------------------------------------------------------------------------
 
 To expand Sphinx functionality beyond existing tools, custom directives and roles
-have been written, which are located in the *docs/extensions* folder.
+have been written, which are located in the *extensions* folder.
 Extensions are straight forward to create, if some functionality is missing,
 consider requesting or creating one.
 
@@ -176,10 +161,10 @@ Git role
 The Git role allows to create links to the Git repository with a shorter syntax.
 The role syntax is :code:`:git-repo:\`text <branch:path>\``, for example:
 
-* :code:`:git-hdl:\`master:docs/contributing/guidelines.rst\``
-  renders as :git-hdl:`master:docs/contributing/guidelines.rst`.
-* :code:`:git-hdl:\`Guidelines <docs/contributing/guidelines.rst>\``
-  renders as :git-hdl:`Guidelines <docs/contributing/guidelines.rst>`.
+* :code:`:git-hdl:\`master:docs/user_guide/docs_guidelines.rst\``
+  renders as :git-hdl:`master:docs/user_guide/docs_guidelines.rst`.
+* :code:`:git-hdl:\`Guidelines <docs/user_guide/docs_guidelines.rst>\``
+  renders as :git-hdl:`Guidelines <docs/user_guide/docs_guidelines.rst>`.
 
 The branch field is optional and will be filled with the current branch.
 The text field is optional and will be filled with the file or directory name.
@@ -188,16 +173,16 @@ Finally, you can do :code:`:git-repo:\`/\`` for a link to the root of the
 repository with pretty naming, for example, :code:`:git-hdl:\`/\`` is rendered
 as :git-hdl:`/`.
 
-Part role
+ADI role
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The part role creates links for a part to the Analog Devices Inc. website.
+The adi role creates links for a webpage to the Analog Devices Inc. website.
 
-The role syntax is :code:`:part:\`text <part_id>\``, for example,
-:code:`:part:\`AD7175-2 <ad7175-2>\``.
+The role syntax is :code:`:adi:\`text <webpage>\``, for example,
+:code:`:adi:\`AD7175-2 <ad7175-2>\``.
 Since links are case insensitive, you can also reduce it to
-:code:`:part:\`AD7175-2\``, when *part_id* is the same as *text* and will render
-as :part:`AD7175-2`.
+:code:`:adi:\`AD7175-2\``, when *webpage* is the same as *text* and will render
+as :adi:`AD7175-2`.
 
 Datasheet role
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,6 +216,14 @@ EngineerZone role
 The ez role creates links to the Analog Devices Inc. EngineerZone support website.
 The role syntax is :code:`:ez:\`community\``, for example, :code:`:ez:\`fpga\``
 gets rendered as :ez:`fpga`.
+
+MathWorks role
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The mw role creates links for a webpage to the MathWorks website.
+
+The role syntax is :code:`:mw:\`text <webpage>\``, for example,
+:code:`:mw:\`videos/modelling-and-simulating-analog-devices-rf-transceivers-with-matlab-and-simrf-89934.html\``.
 
 Vendor role
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -288,3 +281,8 @@ Global options for directives
 
 Use the `hide_collapsible_content` to set the default state of the collapsibles,
 if you set to False, they be expanded by default.
+
+Set `validate_links` to True to validate each link during build.
+These links are not managed, that means, only links from changed files are checked.
+You can run a build with it set to False, then touch the desired files to check
+the links of only these files.

@@ -10,10 +10,10 @@ User Guides: Evaluation Boards and Kits
    categories/transceiver-radio-boards
 
 .. toctree::
-   :caption: Other Info
+   :caption: General Information
    :hidden:
 
-   user-guide/docs_guidelines
+   general-information/docs_guidelines
 
 .. attention::
 

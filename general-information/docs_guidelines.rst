@@ -276,6 +276,19 @@ Renders as:
 
 Notice how you can use any Sphinx syntax, even nest other directives.
 
+ESD warning directive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ESD warning directive creates a ESD warning, for example:
+
+.. code:: rst
+
+   .. esd_warning::
+
+Renders as:
+
+.. esd_warning::
+
 Global options for directives
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

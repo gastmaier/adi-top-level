@@ -11,6 +11,7 @@ from sphinx.util.nodes import nested_parse_with_titles
 from sphinx.util import logging
 from uuid import uuid4
 from hashlib import sha1
+from adi_basic_static import basic_strings
 import contextlib
 
 logger = logging.getLogger(__name__)
@@ -125,8 +126,30 @@ class directive_collapsible(directive_base):
 
 		return [ node ]
 
+class directive_esd_warning(directive_base):
+	option_spec = {'path': directives.unchanged}
+	required_arguments = 0
+	optional_arguments = 0
+
+	def run(self):
+		node = node_div()
+		container = nodes.container(
+			"",
+			is_div=True,
+			classes=['esd_warning']
+		)
+		icon = node_icon(
+			classes=['icon']
+		)
+		container += icon
+		container += nodes.paragraph(text=basic_strings.esd_warning)
+		node += container
+
+		return [ node ]
+
 def setup(app):
 	app.add_directive('collapsible', directive_collapsible)
+	app.add_directive('esd_warning', directive_esd_warning)
 
 	for node in [node_div, node_input, node_label, node_icon]:
 		app.add_node(node,

@@ -286,8 +286,8 @@ Video directive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The video directive creates a embedded video.
-Currently, only direct MP4 are supported, but could be easily expanded to support
-third-party services.
+Currently, direct MP4 and youtube embed links  are supported, but could be easily
+expanded to support third-party services.
 
 The directive syntax is:
 
@@ -305,6 +305,15 @@ Renders as:
 
 .. video:: http://ftp.fau.de/fosdem/2015/devroom-software_defined_radio/iiosdr.mp4
 
+And:
+
+.. code:: rst
+
+   .. video:: https://www.youtube.com/watch?v=p_VntEwUe24
+
+Renders as:
+
+.. video:: https://www.youtube.com/watch?v=p_VntEwUe24
 
 ESD warning directive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

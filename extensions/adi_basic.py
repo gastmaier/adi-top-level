@@ -13,6 +13,7 @@ from uuid import uuid4
 from hashlib import sha1
 from adi_basic_static import basic_strings
 import contextlib
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -69,6 +70,10 @@ class node_video(node_base):
 
 class node_source(node_base):
 	tagname = 'source'
+	endtag = 'false'
+
+class node_iframe(node_base):
+	tagname = 'iframe'
 	endtag = 'false'
 
 class directive_base(Directive):
@@ -139,19 +144,31 @@ class directive_video(directive_base):
 	required_arguments = 1
 	optional_arguments = 0
 
+	yt_pattern = r'(https?://)?(www\.)?youtube\.com/watch\?v=([a-zA-Z0-9_-]+)'
 	def run (self):
 		url = self.arguments[0].strip()
-		node = node_div()
 
-		video = node_video(
-			controls="controls"
-		)
-		source = node_source(
-			type="video/mp4",
-			src=url
-		)
-		video += source
-		node += video
+		yt_match = re.search(self.yt_pattern, url)
+		if yt_match:
+			node = node_div(
+				classes=['iframe-video']
+			)
+			yt_id = yt_match.group(3)
+			iframe = node_iframe(
+				src=f"//www.youtube-nocookie.com/embed/{yt_id}"
+			)
+			node += iframe
+		else:
+			node = node_div()
+			video = node_video(
+				controls="controls"
+			)
+			source = node_source(
+				type="video/mp4",
+				src=url
+			)
+			video += source
+			node += video
 
 		return [ node ]
 
@@ -181,7 +198,7 @@ def setup(app):
 	app.add_directive('video',       directive_video)
 	app.add_directive('esd_warning', directive_esd_warning)
 
-	for node in [node_div, node_input, node_label, node_icon, node_video, node_source]:
+	for node in [node_div, node_input, node_label, node_icon, node_video, node_source, node_iframe]:
 		app.add_node(node,
 				html =(node.visit, node.depart),
 				latex=(node.visit, node.depart),

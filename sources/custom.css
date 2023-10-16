@@ -125,3 +125,6 @@ td.description {
 	background: url(esd_warning.svg);
 	background-size: contain;
 }
+video {
+	max-width: 100%;
+}

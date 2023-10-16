@@ -34,7 +34,7 @@ git_repos = [
 	['iio-oscilloscope', "IIO Oscilloscope"],
 	['pyadi-iio',        "PyADI-IIO"]
 ]
-vendors = ['xilinx', 'intel']
+vendors = ['xilinx', 'intel', 'mw']
 
 def get_url_config(name, inliner):
 	app = inliner.document.settings.env.app
@@ -80,18 +80,6 @@ def ez():
 	def role(name, rawtext, text, lineno, inliner, options={}, content=[]):
 		url = get_url_config('ez', inliner) + '/' + text
 		node = nodes.reference(rawtext, "EngineerZone", refuri=url, **options)
-		add_link(inliner, lineno, url)
-		return [node], []
-
-	return role
-
-def mw():
-	def role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-		name, path = get_outer_inner(text)
-		if name is None:
-			name = path
-		url = get_url_config('mw', inliner) + '/' + path
-		node = nodes.reference(rawtext, name, refuri=url, **options)
 		add_link(inliner, lineno, url)
 		return [node], []
 
@@ -202,7 +190,6 @@ def setup(app):
 	app.add_role("datasheet",       datasheet())
 	app.add_role("dokuwiki",        dokuwiki())
 	app.add_role("ez",              ez())
-	app.add_role("mw",              mw())
 	app.add_role("adi",             adi())
 	for name in vendors:
 		app.add_role(name,          vendor(name))

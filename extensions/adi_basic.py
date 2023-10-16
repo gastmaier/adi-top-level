@@ -63,6 +63,14 @@ class node_icon(node_base):
 	tagname = 'div'
 	endtag = 'false'
 
+class node_video(node_base):
+	tagname = 'video'
+	endtag = 'true'
+
+class node_source(node_base):
+	tagname = 'source'
+	endtag = 'false'
+
 class directive_base(Directive):
 	has_content = True
 	add_index = True
@@ -126,6 +134,27 @@ class directive_collapsible(directive_base):
 
 		return [ node ]
 
+class directive_video(directive_base):
+	option_spec = {'path': directives.unchanged}
+	required_arguments = 1
+	optional_arguments = 0
+
+	def run (self):
+		url = self.arguments[0].strip()
+		node = node_div()
+
+		video = node_video(
+			controls="controls"
+		)
+		source = node_source(
+			type="video/mp4",
+			src=url
+		)
+		video += source
+		node += video
+
+		return [ node ]
+
 class directive_esd_warning(directive_base):
 	option_spec = {'path': directives.unchanged}
 	required_arguments = 0
@@ -149,9 +178,10 @@ class directive_esd_warning(directive_base):
 
 def setup(app):
 	app.add_directive('collapsible', directive_collapsible)
+	app.add_directive('video',       directive_video)
 	app.add_directive('esd_warning', directive_esd_warning)
 
-	for node in [node_div, node_input, node_label, node_icon]:
+	for node in [node_div, node_input, node_label, node_icon, node_video, node_source]:
 		app.add_node(node,
 				html =(node.visit, node.depart),
 				latex=(node.visit, node.depart),

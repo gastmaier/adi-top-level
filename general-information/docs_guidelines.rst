@@ -155,8 +155,18 @@ Color role
 
 To print text in red or green, use :code:`:red:\`text\`` and :code:`:green:\`text\``.
 
-Git role
+Link roles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The link roles are a group of roles defined by ``adi_links.py``.
+
+The ``validate_links`` gloabl option is used to validate each link during build.
+These links are not managed, that means, only links from changed files are checked.
+You can run a build with it set to False, then touch the desired files to check
+the links of only these files.
+
+Git role
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The Git role allows to create links to the Git repository with a shorter syntax.
 The role syntax is :code:`:git-repo:\`text <branch:path>\``, for example:
@@ -174,7 +184,7 @@ repository with pretty naming, for example, :code:`:git-hdl:\`/\`` is rendered
 as :git-hdl:`/`.
 
 ADI role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The adi role creates links for a webpage to the Analog Devices Inc. website.
 
@@ -185,7 +195,7 @@ Since links are case insensitive, you can also reduce it to
 as :adi:`AD7175-2`.
 
 Datasheet role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The datasheet role creates links for a datasheet in the Analog Devices Inc. website.
 
@@ -202,7 +212,7 @@ by just copying the link in the table of contents.
    figure number!
 
 Dokuwiki role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The dokuwiki role creates links to the Analog Devices Inc. wiki website.
 The role syntax is :code:`:dokuwiki:\`text <path>\``, for example,
@@ -211,24 +221,16 @@ gets rendered as
 :dokuwiki:`pulsar-adc-pmods <resources/eval/user-guides/circuits-from-the-lab/pulsar-adc-pmods>`.
 
 EngineerZone role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The ez role creates links to the Analog Devices Inc. EngineerZone support website.
 The role syntax is :code:`:ez:\`community\``, for example, :code:`:ez:\`fpga\``
 gets rendered as :ez:`fpga`.
 
-MathWorks role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The mw role creates links for a webpage to the MathWorks website.
-
-The role syntax is :code:`:mw:\`text <webpage>\``, for example,
-:code:`:mw:\`videos/modelling-and-simulating-analog-devices-rf-transceivers-with-matlab-and-simrf-89934.html\``.
-
 Vendor role
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-The vendor role creates links to the vendor's website.
+The vendor role creates links to vendors' website.
 The role syntax is :code:`:vendor:\`text <path>\``, for example,
 :code:`:xilinx:\`Zynq-7000 SoC Overview <support/documentation/data_sheets/ds190-Zynq-7000-Overview.pdf>\``
 gets rendered
@@ -241,7 +243,8 @@ gets rendered
 :intel:`content/www/us/en/docs/programmable/683780/22-4/general-purpose-i-o-overview.html`
 (not very readable).
 
-Supported vendors are: `xilinx` and `intel`.
+Supported vendors are: ``xilinx`` (AMD Xilinx), ``intel`` (Intel Altera) and
+``mw`` (MathWorks).
 
 Collapsible directive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -276,6 +279,33 @@ Renders as:
 
 Notice how you can use any Sphinx syntax, even nest other directives.
 
+The ``hide_collapsible_content`` global option is used to set the default state of
+the collapsibles, if you set to False, they be expanded by default.
+
+Video directive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The video directive creates a embedded video.
+Currently, only direct MP4 are supported, but could be easily expanded to support
+third-party services.
+
+The directive syntax is:
+
+.. code:: rst
+
+   .. video:: <url>
+
+For example:
+
+.. code:: rst
+
+   .. video:: http://ftp.fau.de/fosdem/2015/devroom-software_defined_radio/iiosdr.mp4
+
+Renders as:
+
+.. video:: http://ftp.fau.de/fosdem/2015/devroom-software_defined_radio/iiosdr.mp4
+
+
 ESD warning directive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -289,13 +319,3 @@ Renders as:
 
 .. esd_warning::
 
-Global options for directives
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Use the `hide_collapsible_content` to set the default state of the collapsibles,
-if you set to False, they be expanded by default.
-
-Set `validate_links` to True to validate each link during build.
-These links are not managed, that means, only links from changed files are checked.
-You can run a build with it set to False, then touch the desired files to check
-the links of only these files.

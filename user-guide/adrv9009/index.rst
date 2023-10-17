@@ -96,7 +96,7 @@ If you have any questions, feel free to :ref:`ask <ad-fmcomms2-ebz help_and_supp
       #. :dokuwiki:`HDL Targeting From MATLAB and Simulink <resources/tools-software/transceiver-toolbox>`
 
 #. :ref:`Additional Documentation about SDR Signal Chains - The math behind the RF <ad-fmcomms1-ebz math>`
-#. :ref:`Help and Support <ad-fmcomms2-ebz help_and_support>`
+#. :ref:`Help and Support <ad-fmcomms2-ebz help-and-support>`
 
 Videos
 -------------------------------------------------------------------------------

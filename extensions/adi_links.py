@@ -6,7 +6,8 @@
 from docutils import nodes
 from sphinx.util import logging
 import subprocess
-import requests
+import asyncio
+import aiohttp
 
 logger = logging.getLogger(__name__)
 validate_links_user_agent = 'Status resolver (Python/Sphinx)'
@@ -78,8 +79,13 @@ def dokuwiki():
 
 def ez():
 	def role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-		url = get_url_config('ez', inliner) + '/' + text
-		node = nodes.reference(rawtext, "EngineerZone", refuri=url, **options)
+		text, path = get_outer_inner(text)
+		if path == '/':
+			path = ''
+		url = get_url_config('ez', inliner) + '/' + path
+		if text is None:
+			text = "EngineerZone"
+		node = nodes.reference(rawtext, text, refuri=url, **options)
 		add_link(inliner, lineno, url)
 		return [node], []
 
@@ -145,23 +151,40 @@ def validate_links(app, env):
 		logger.info(f"Skipping {len(env.links)} URLs checks-ups. Set validate_links to True to enable this.")
 		return
 
+	asyncio.run(
+		async_validate_links(app, env)
+	)
+
+async def validate_link(link, headers):
+	try:
+		async with aiohttp.ClientSession() as session:
+			async with session.get(link, headers=headers) as response:
+				return link, response.status
+	except aiohttp.ClientError as e:
+		return link, e
+
+async def async_validate_links(app, env):
 	headers = {'User-Agent': validate_links_user_agent}
-	total = len(env.links)
+
 	fail_count = 0
-	count = 0
+	total = len(env.links)
+	completed = 0
+	tasks = []
+	results = []
 	for link in env.links:
-		count += 1
-		print(f'Validating URL {count} out of {total}...', end='\r')
-		throw_error = False
-		try:
-			error = requests.get(link, headers=headers).status_code
-			if error != 200:
-				throw_error = True
-				fail_count += 1
-		except requests.exceptions.RequestException as e:
-			throw_error = True
+		task = asyncio.create_task(validate_link(link, headers))
+		tasks.append(task)
+
+	for task in asyncio.as_completed(tasks):
+		results.append(await task)
+		completed += 1
+		print(f'Validated URL {completed} out of {total}...', end='\r')
+
+	for link, error in results:
+		if isinstance(error, aiohttp.ClientResponse):
+			error = error, status
+		if error != 200:
 			fail_count += 1
-		if throw_error:
 			if len(env.links[link]) > 1:
 				extended_error = f"Resolved {len(env.links[link])} times, path shown is the first instance."
 			else:

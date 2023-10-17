@@ -1,3 +1,5 @@
 sphinx
 furo
 sphinxcontrib-svg2pdfconverter
+aiohttp
+aiodns

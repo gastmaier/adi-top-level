@@ -155,7 +155,7 @@ class directive_video(directive_base):
 			)
 			yt_id = yt_match.group(3)
 			iframe = node_iframe(
-				src=f"//www.youtube-nocookie.com/embed/{yt_id}"
+				src=f"https://www.youtube-nocookie.com/embed/{yt_id}"
 			)
 			node += iframe
 		else:

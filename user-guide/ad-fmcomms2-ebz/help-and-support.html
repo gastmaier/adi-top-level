@@ -1,0 +1,399 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <link rel="shortcut icon" href="../../_static/icon.svg"/><!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>Help and Support for ADI FMC Cards &amp; RF SoMs - System Level, Analog Devices v0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=143fb43c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">System Level, Analog Devices v0.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">System Level, Analog Devices v0.1 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">FMC Compatible Boards</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../categories/transceiver-radio-boards.html">Transceiver/Radio Boards</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Transceiver/Radio Boards</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../adrv9009/index.html">ADRV9009 &amp; ADRV9008</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../general-information/docs_guidelines.html">Documentation guidelines</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="help-and-support-for-adi-fmc-cards-rf-soms">
+<span id="ad-fmcomms2-ebz-help-and-support"></span><h1>Help and Support for ADI FMC Cards &amp; RF SoMs<a class="headerlink" href="#help-and-support-for-adi-fmc-cards-rf-soms" title="Link to this heading">#</a></h1>
+<p>If you have any questions regarding the:</p>
+<ul class="simple">
+<li><p>ADI FMC Boards : AD-FMCOMMS2-EBZ, AD-FMCOMMS3-EBZ, AD-FMCOMMS4-EBZ,
+AD-FMCOMMS5-EBZ AD-FMCOMMS11-EBZ</p></li>
+<li><p>Arrow ARRADIO board or</p></li>
+<li><p>ADI RF SoM (ADRV9364-Z7020, ADRV9361-Z7035 or ADRV9009-ZU11EG)</p></li>
+</ul>
+<p>or are experiencing any problems while using the board or following the user
+guides feel free to ask us a question.
+Questions can be asked on our <a class="reference external" href="https://ez.analog.com/">EngineerZone</a> support community.
+Calling on the phone, emailing someone directly, will only cause things to get
+answered in much slower manner.</p>
+<p>Why EngineerZone? Why can’t I get one-on-one email/phone support on the AD9361?
+The AD9361 is a very complex part - it has over one thousand (1000) different
+registers with little way to understand (other than experience, and staring at
+things a long time) what is going on inside the part. The working system
+crosses many domains (RF, FIR Filter Design, driver software, HDL, user
+applications). One single person can’t understand the entire thing, so a single
+email, which is forwarded around to multiple places actually takes longer to
+get questions answered (and has a higher chance of getting lost), than posting
+them on EngineerZone (Where things are tracked, and closed). Having experts in
+the field monitor the EngineerZone is a better use of everyone’s time, and
+questions are actually answered faster for those asking. Please use it.</p>
+<p>When asking a question please take the time to give a detailed description of
+your problem. Always include on which carrier platform (ZC706? ZC702? Zed,
+SocKit, FMC carrier, breakout (for SoMs). etc) you are currently using the
+card. If you are experiencing a problem please state the steps you have
+executed, the result you expected you would get and the result you actually
+got. By doing so you enable us to provide you precise and detailed answers in a
+timely manner.</p>
+<p>Before asking questions please also take the time to check if somebody else
+already asked the same question and already got an answer. Please make sure you
+ask in these forums. EngineerZone is a big place, with lots of places to post
+questions, and it’s possible to ask a question in the wrong place, where no one
+familiar with these boards/parts/software monitors things, and it will go
+unanswered forever. Don’t get mad if this happens. The problem is between the
+chair and the keyboard (you). If you are posting in the right place, and the
+question is unanswered for a few working days, please bump the thread (we are
+human, and sometimes miss things).</p>
+<section id="hdl-hardware-questions">
+<h2>HDL / Hardware Questions<a class="headerlink" href="#hdl-hardware-questions" title="Link to this heading">#</a></h2>
+<p>For questions regarding the AD-FMCOMMS2-EBZ, AD-FMCOMMS3-EBZ or AD-FMCOMMS4-EBZ
+hardware or the HDL reference design please state them in the
+<a class="reference external" href="https://ez.analog.com/fpga">FPGA Reference Designs</a> sub-community.
+If you have questions about the tools, please go ask the tools vendors:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://support.xilinx.com/s">AMD Xilinx Forums</a></p></li>
+<li><p><a class="reference external" href="https://community.intel.com/t5/FPGA/ct-p/fpga">Intel Altera Forums</a></p></li>
+</ul>
+</section>
+<section id="linux-driver-or-application-questions">
+<h2>Linux Driver or Application Questions<a class="headerlink" href="#linux-driver-or-application-questions" title="Link to this heading">#</a></h2>
+<p>For questions regarding the the ADI Linux distribution (which is based
+<a class="reference external" href="https://www.linaro.org/">Linaro</a> with <a class="reference external" href="https://www.xfce.org/">Xfce</a> desktop),
+the Linux drivers, or the device trees for the AD9361 or
+AD9364 based platforms, please use the
+<a class="reference external" href="https://ez.analog.com/linux-software-drivers">Linux Software Drivers</a> sub-community.</p>
+<p>If you have generic userspace questions (how do I use a standard linux tool),
+we should suggest to use your favorite <a class="reference external" href="https://google.com">search tool</a> to find
+that  tool/utility/application support method (some use email, some use web).
+If you think you have found a bug specific to ARM, please report this upstream.</p>
+</section>
+<section id="no-os-questions">
+<h2>No-OS Questions<a class="headerlink" href="#no-os-questions" title="Link to this heading">#</a></h2>
+<p>For questions regarding the no-OS drivers for AD9361 or AD9364, please use the
+<a class="reference external" href="https://ez.analog.com/linux-software-drivers">Linux Software Drivers</a>
+sub-community.</p>
+</section>
+<section id="general-ad9361-questions">
+<h2>General AD9361 Questions<a class="headerlink" href="#general-ad9361-questions" title="Link to this heading">#</a></h2>
+<p>Questions about the AD9361 or AD9364, please use the
+<a class="reference external" href="https://ez.analog.com/wide-band-rf-transceivers/design-support">AD9361</a> sub-community.</p>
+<p>Detailed documentation on the AD9361 device can be found at:
+<a class="reference external" href="https://www.analog.com/en/rfif-components/rfif-transceivers/products/AD9361-Integrated-RF-Agile-Transceiver-Design-Res/fca.html">AD9361 Design support package</a></p>
+</section>
+<section id="ad9361-4-fir-filter-wizard">
+<h2>AD9361/4 FIR Filter Wizard<a class="headerlink" href="#ad9361-4-fir-filter-wizard" title="Link to this heading">#</a></h2>
+<p>Questions about the
+<a class="reference external" href="https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms2-ebz/software/filters">AD936x FIR Filter Wizard</a>
+can be asked on
+<a class="reference external" href="https://ez.analog.com/linux-software-drivers">Linux Software Drivers</a> sub-community.</p>
+</section>
+<section id="matlab-simulink-simrf-questions">
+<h2>MATLAB/Simulink/SimRF Questions<a class="headerlink" href="#matlab-simulink-simrf-questions" title="Link to this heading">#</a></h2>
+<p>Questions about the MathWorks provided AD9361 simRF model, or the FMCOMMS2/3/4/5
+Hardware support package can be asked either:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.mathworks.com/products/connections/product_detail/adi-rf-transceivers.html">MathWorks information page</a></p></li>
+<li><p><a class="reference external" href="https://www.mathworks.com/hardware-support/request-hardware-support.html">MathWorks Hardware Support</a></p></li>
+</ul>
+<p>Questions about the Analog Devices provided Filter Wizard, or streaming system object,
+or Board Support Package can be asked:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ez.analog.com/sw-interface-tools">MATLAB/Simulink support</a></p></li>
+</ul>
+</section>
+<section id="gnu-radio">
+<h2>GNU Radio<a class="headerlink" href="#gnu-radio" title="Link to this heading">#</a></h2>
+<p>Questions about using the FMCOMMSx boards and GNU Radio either on a host or on
+the ARM target, can be asked on <a class="reference external" href="https://ez.analog.com/sw-interface-tools">Software Interface Tools</a>
+sub-community.
+Generic questions about GNU Radio should be asked on their
+<a class="reference external" href="https://wiki.gnuradio.org/index.php/MailingLists">mailing list</a>.</p>
+</section>
+<section id="bugs-feature-requests">
+<h2>Bugs / Feature Requests<a class="headerlink" href="#bugs-feature-requests" title="Link to this heading">#</a></h2>
+<p>If you think you have a bug to report, the best place to to this is the <a class="reference external" href="https://ez.analog.com/">EngineerZone</a>.
+This way we can discuss if the bug is a bug, or a feature request, or just missing
+documentation.</p>
+<p>If you think you have a real bug, where you have developed a real fix (first - thanks),
+feel free to:</p>
+<ul class="simple">
+<li><p>Post something on EngineerZone.</p></li>
+<li><p>Post something on the GitHub issue tracker.</p></li>
+<li><p>Fork the GitHub repository, and fix it, and then send a pull request.</p></li>
+</ul>
+<p>Either is OK with us.</p>
+</section>
+<section id="more-info">
+<h2>More info<a class="headerlink" href="#more-info" title="Link to this heading">#</a></h2>
+<p>For more information also check:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.vita.com/fmc">VITA’s FMC info</a></p></li>
+<li><p><a class="reference external" href="https://www.analog.com/AD-FMCOMMS2-EBZ">AD-FMCOMMS2-EBZ</a></p></li>
+<li><p><a class="reference external" href="https://www.analog.com/AD-FMCOMMS3-EBZ">AD-FMCOMMS3-EBZ</a></p></li>
+<li><p><a class="reference external" href="https://www.analog.com/AD-FMCOMMS4-EBZ">AD-FMCOMMS4-EBZ</a></p></li>
+<li><p><a class="reference external" href="https://www.analog.com/AD-FMCOMMS5-EBZ">AD-FMCOMMS5-EBZ</a></p></li>
+<li><p><a class="reference external" href="https://wiki.analog.com/resources/eval/user-guides/arradio">Arradio</a></p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Analog Devices Inc
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Help and Support for ADI FMC Cards &amp; RF SoMs</a><ul>
+<li><a class="reference internal" href="#hdl-hardware-questions">HDL / Hardware Questions</a></li>
+<li><a class="reference internal" href="#linux-driver-or-application-questions">Linux Driver or Application Questions</a></li>
+<li><a class="reference internal" href="#no-os-questions">No-OS Questions</a></li>
+<li><a class="reference internal" href="#general-ad9361-questions">General AD9361 Questions</a></li>
+<li><a class="reference internal" href="#ad9361-4-fir-filter-wizard">AD9361/4 FIR Filter Wizard</a></li>
+<li><a class="reference internal" href="#matlab-simulink-simrf-questions">MATLAB/Simulink/SimRF Questions</a></li>
+<li><a class="reference internal" href="#gnu-radio">GNU Radio</a></li>
+<li><a class="reference internal" href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
+<li><a class="reference internal" href="#more-info">More info</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=34cd777e"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

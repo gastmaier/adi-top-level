@@ -3,11 +3,9 @@
 ### SPDX short identifier: ADIBSD
 ###############################################################################
 
+import subprocess
 from docutils import nodes
 from sphinx.util import logging
-import subprocess
-import asyncio
-import aiohttp
 
 logger = logging.getLogger(__name__)
 validate_links_user_agent = 'Status resolver (Python/Sphinx)'
@@ -107,7 +105,7 @@ def git(repo, alt_name):
 			branch = get_active_branch_name() if pos in [0, -1] else path[0:pos]
 			path = path[pos+1:]
 			if text is None:
-				text = path[path.rfind('/')+1:]
+				text = path
 			url = url + '/blob/' + branch + '/' + path
 			node = nodes.reference(rawtext, text, refuri=url, **options)
 		add_link(inliner, lineno, url)
@@ -151,16 +149,23 @@ def validate_links(app, env):
 		logger.info(f"Skipping {len(env.links)} URLs checks-ups. Set validate_links to True to enable this.")
 		return
 
+	global asyncio, aiohttp
+	import asyncio
+	import aiohttp
+
 	asyncio.run(
 		async_validate_links(app, env)
 	)
 
 async def validate_link(link, headers):
+	session_timeout = aiohttp.ClientTimeout(total=None, sock_connect=10, sock_read=10)
 	try:
-		async with aiohttp.ClientSession() as session:
-			async with session.get(link, headers=headers) as response:
+		async with aiohttp.ClientSession(timeout=session_timeout) as session:
+			async with session.get(link, headers=headers, timeout=10) as response:
 				return link, response.status
 	except aiohttp.ClientError as e:
+		return link, e
+	except asyncio.TimeoutError as e:
 		return link, e
 
 async def async_validate_links(app, env):
@@ -171,18 +176,28 @@ async def async_validate_links(app, env):
 	completed = 0
 	tasks = []
 	results = []
-	for link in env.links:
-		task = asyncio.create_task(validate_link(link, headers))
-		tasks.append(task)
+	step = 25
 
-	for task in asyncio.as_completed(tasks):
-		results.append(await task)
-		completed += 1
-		print(f'Validated URL {completed} out of {total}...', end='\r')
+	links = list(env.links)
+	leng = int(total/step)+1 if total%step != 0 else int(total/step)
+	for i in range(0, leng):
+		cur = i*step
+		end = total if (i+1)*step > total else (i+1)*step
+		_links = links[cur:end]
+		for link in _links:
+			task = asyncio.create_task(validate_link(link, headers))
+			tasks.append(task)
+
+		for task in asyncio.as_completed(tasks):
+			results.append(await task)
+			completed += 1
+			print(f'Validated URL {completed} out of {total}, bundle {i+1} of {leng}...', end='\r')
+		del tasks
+		tasks = []
 
 	for link, error in results:
-		if isinstance(error, aiohttp.ClientResponse):
-			error = error, status
+		if isinstance(error, asyncio.TimeoutError):
+			error = 'Timeout Error'
 		if error != 200:
 			fail_count += 1
 			if len(env.links[link]) > 1:

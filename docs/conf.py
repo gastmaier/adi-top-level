@@ -20,7 +20,8 @@ extensions = [
 	"sphinx.ext.todo",
 	"sphinx.ext.intersphinx",
 	"adi_basic",
-	"adi_links"
+	"adi_links",
+	"adi_hdl_parser"
 ]
 
 templates_path = ['sources/template']

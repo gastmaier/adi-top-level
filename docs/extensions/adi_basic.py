@@ -82,6 +82,101 @@ class directive_base(Directive):
 	current_doc = ''
 	final_argument_whitespace = True
 
+	@staticmethod
+	def get_descriptions(content):
+		items = {}
+		key = ''
+		for line in content:
+			if line.startswith('* -'):
+				key = line[line.find('* -')+3:].split()[0]
+				items[key] = []
+			else:
+				items[key].append(line)
+		for key in items:
+			items[key] = ' '.join(items[key]).replace('-', '', 1).strip()
+		return items
+
+	def column_entry(self, row, text, node_type, classes=[]):
+		entry = nodes.entry(classes=classes)
+		if node_type == 'literal':
+			entry += nodes.literal(text=text)
+		elif node_type == 'paragraph':
+			entry += nodes.paragraph(text=text)
+		elif node_type == 'reST':
+			rst = ViewList()
+			rst.append(text, f"virtual_{str(uuid4())}", 0)
+			node = nodes.section()
+			node.document = self.state.document
+			nested_parse_with_titles(self.state, rst, node)
+			entry += node
+		elif node_type == 'default_value':
+			if text[0:2] != '0x':
+				rst = ViewList()
+				rst.append(text, f"virtual_{str(uuid4())}", 0)
+				node = nodes.section()
+				node.document = self.state.document
+				nested_parse_with_titles(self.state, rst, node)
+				entry += node
+			else:
+				entry += nodes.literal(text=text)
+		else:
+			return
+		row += entry
+
+	def column_entries(self, rows, items):
+		row = nodes.row()
+		for item in items:
+			if len(item) == 3:
+				self.column_entry(row, item[0], item[1], classes=item[2])
+			else:
+				self.column_entry(row, item[0], item[1])
+		rows.append(row)
+
+	def generic_table(self, description):
+		tgroup = nodes.tgroup(cols=2)
+		for _ in range(2):
+			colspec = nodes.colspec(colwidth=1)
+			tgroup.append(colspec)
+		table = nodes.table()
+		table += tgroup
+
+		self.table_header(tgroup, ["Name", "Description"])
+
+		rows = []
+		for key in description:
+			row = nodes.row()
+			entry = nodes.entry()
+			entry += nodes.literal(text="{:s}".format(key))
+			row += entry
+			entry = nodes.entry()
+			rst = ViewList()
+			rst.append(description[key], f"virtual_{str(uuid4())}", 0)
+			node = nodes.section()
+			node.document = self.state.document
+			nested_parse_with_titles(self.state, rst, node)
+			entry += node
+			row += entry
+			rows.append(row)
+
+		tbody = nodes.tbody()
+		tbody.extend(rows)
+		tgroup += tbody
+
+		return table
+
+	@staticmethod
+	def table_header(tgroup, columns):
+		thead = nodes.thead()
+		tgroup += thead
+		row = nodes.row()
+
+		for header_name in columns:
+			entry = nodes.entry()
+			entry += nodes.paragraph(text=header_name)
+			row += entry
+
+		thead.append(row)
+
 	def collapsible(self, section, text=""):
 		env = self.state.document.settings.env
 

@@ -4,10 +4,16 @@ User Guides: Evaluation Boards and Kits
 ===============================================================================
 
 .. toctree::
-   :caption: FMC Compatible Boards 
+   :caption: FMC Compatible Boards
    :hidden:
 
    categories/transceiver-radio-boards
+
+.. toctree::
+   :caption: Repositories
+   :hidden:
+
+   hdl/index
 
 .. toctree::
    :caption: General Information
